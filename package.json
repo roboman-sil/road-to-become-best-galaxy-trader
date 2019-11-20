@@ -2,7 +2,7 @@
   "name": "road-to-become-best-galaxy-trader",
   "version": "1.0.0",
   "description": "I want to be the very best galaxy trader there ever was",
-  "main": "trader-bot.js",
+  "main": "traderBot.js",
   "scripts": {
     "test": "jest"
   },
