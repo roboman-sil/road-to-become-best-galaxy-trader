@@ -2,9 +2,9 @@
   "name": "road-to-become-best-galaxy-trader",
   "version": "1.0.0",
   "description": "I want to be the very best galaxy trader there ever was",
-  "main": "index.js",
+  "main": "trader-bot.js",
   "scripts": {
-    "test": "test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Silavin/road-to-become-best-galaxy-trader/issues"
   },
-  "homepage": "https://github.com/Silavin/road-to-become-best-galaxy-trader#readme"
+  "homepage": "https://github.com/Silavin/road-to-become-best-galaxy-trader#readme",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
 }
