@@ -16,6 +16,7 @@ class TraderBot {
     console.log('Greetings Master, what is new on the galaxy market today?');
 
     this.rl.question('', answer => this.questionResponse(answer, this.rl));
+    return true;
   }
 
   questionResponse(answer, rl) {
