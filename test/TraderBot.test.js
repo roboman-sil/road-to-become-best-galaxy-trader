@@ -1,6 +1,6 @@
 const TraderBot = require('../TraderBot/TraderBot');
 
-describe('TraderBot', () => {
+describe.skip('TraderBot', () => {
   it('should be able to run', () => {
     const traderBot = new TraderBot();
     const value = traderBot.run();
