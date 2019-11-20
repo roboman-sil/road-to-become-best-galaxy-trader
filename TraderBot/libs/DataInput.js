@@ -1,4 +1,4 @@
-const romanNumericTable = require('../data/RomanNumericTable.json');
+const romanNumericTable = require('../data/romanNumericTable.json');
 
 class DataInput {
   isAValidDataInput(input) {
