@@ -1,4 +1,4 @@
-const TraderBot = require('../TraderBot');
+const TraderBot = require('../TraderBot/TraderBot');
 
 describe('TraderBot', () => {
   it('should be able to run', () => {

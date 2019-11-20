@@ -4,7 +4,8 @@
   "description": "I want to be the very best galaxy trader there ever was",
   "main": "TraderBot.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node TraderBot.js"
   },
   "repository": {
     "type": "git",
