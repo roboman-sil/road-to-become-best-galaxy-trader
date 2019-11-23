@@ -1,6 +1,21 @@
 const fs = require('fs');
+const romanNumericTable = require('../data/romanNumericTable.json');
+const materialTable = require('../data/materialTable.json');
+const vocabularyTable = require('../data/vocabularyTable.json');
 
 class DataManager {
+  getRomanNumeralList() {
+    return Object.keys(romanNumericTable);
+  }
+
+  getMaterialList() {
+    return Object.keys(materialTable);
+  }
+
+  getVocabularyList() {
+    return Object.keys(vocabularyTable);
+  }
+
   updateData(tableName, data) {
     let updatedData = data;
     if (fs.existsSync(tableName)) {
@@ -14,11 +29,11 @@ class DataManager {
   }
 
   updateMaterialTable(data) {
-    this.updateData('./TraderBot/data/MaterialTable.json', data);
+    this.updateData('./TraderBot/data/materialTable.json', data);
   }
 
   updateVocabularyTable(data) {
-    this.updateData('./TraderBot/data/VocabularyTable.json', data);
+    this.updateData('./TraderBot/data/vocabularyTable.json', data);
   }
 }
 
