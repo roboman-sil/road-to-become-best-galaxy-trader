@@ -47,6 +47,56 @@ class Translator extends DataManager {
 
     return selectedCostValue;
   }
+
+  parseVocabularyString(string) {
+    const listOfPotentialVocabularies = string.split(' ');
+
+    let translatedVocabulary = '';
+    listOfPotentialVocabularies.forEach(potentialVocabulary => {
+      const parsedVocabulary = this.vocabularyToRoman(potentialVocabulary);
+
+      if (parsedVocabulary !== '') {
+        translatedVocabulary += parsedVocabulary;
+      }
+    });
+
+    return translatedVocabulary;
+  }
+
+  parseRomanString(string) {
+    const listOfRomanString = string.split('');
+
+    const listOfNumerals = [];
+    listOfRomanString.forEach(romanCharacter => {
+      const numeral = this.romanToNumeric(romanCharacter);
+      listOfNumerals.push(numeral);
+    });
+
+    let amount = 0;
+    listOfNumerals.forEach((currentAmount, index) => {
+      const prevAmountThree = listOfNumerals[index - 3] || 0;
+      const prevAmountTwo = listOfNumerals[index - 2] || 0;
+      const prevAmount = listOfNumerals[index - 1] || 0;
+      const nextAmount = listOfNumerals[index + 1] || 0;
+
+      if (nextAmount < currentAmount) {
+        let wildcardAmount = 0;
+        if (prevAmount <= currentAmount) {
+          wildcardAmount += prevAmount;
+          if (prevAmountTwo === prevAmount) wildcardAmount += prevAmount;
+          if (prevAmountThree === prevAmount) wildcardAmount += prevAmount;
+        }
+
+        if (nextAmount === 0 && prevAmount === currentAmount) {
+          amount += currentAmount + wildcardAmount;
+        } else {
+          amount += currentAmount - wildcardAmount;
+        }
+      }
+    });
+
+    return amount;
+  }
 }
 
 module.exports = Translator;

@@ -36,8 +36,35 @@ describe('Translator', () => {
       expect(result3).toBe(195.5);
     });
   });
-  describe('Roman Numerals to Numeric Numbers', () => {
-    it('should not be able to traslate when roman numerals break the rule ', () => {});
+
+  describe('Vocabulary String to Roman String', () => {
+    it('Should be able to translate a vocabulary string to roman string', () => {
+      const translator = new Translator();
+
+      const result1 = translator.parseVocabularyString('pish tegj glob glob');
+      const result2 = translator.parseVocabularyString('glob prok');
+
+      expect(result1).toBe('XLII');
+      expect(result2).toBe('IV');
+    });
+  });
+
+  describe('Roman String to Numeric Numbers', () => {
+    it('should be able to translate roman numeric string to numeric numbers', () => {
+      const translator = new Translator();
+
+      const result1 = translator.parseRomanString('XLII');
+      const result2 = translator.parseRomanString('MCMXLIV');
+      const result3 = translator.parseRomanString('MCMIII');
+      const result4 = translator.parseRomanString('DCLIIX');
+      const result5 = translator.parseRomanString('XXX');
+
+      expect(result1).toBe(42);
+      expect(result2).toBe(1944);
+      expect(result3).toBe(1903);
+      expect(result4).toBe(658);
+      expect(result5).toBe(30);
+    });
   });
 
   // describe('Vocabulary to Roman Numerals', () => {
