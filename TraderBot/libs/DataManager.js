@@ -16,6 +16,18 @@ class DataManager {
     return Object.keys(vocabularyTable);
   }
 
+  getSelectedMaterialValue(key) {
+    return materialTable[key];
+  }
+
+  getSelectedVocabularyValue(key) {
+    return vocabularyTable[key];
+  }
+
+  getSelectedRomanValue(key) {
+    return romanNumericTable[key];
+  }
+
   updateData(tableName, data) {
     let updatedData = data;
     if (fs.existsSync(tableName)) {

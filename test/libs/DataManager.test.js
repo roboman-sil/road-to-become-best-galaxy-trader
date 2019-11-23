@@ -11,9 +11,9 @@ jest.mock('../../TraderBot/data/romanNumericTable.json', () => ({
   M: 1000,
 }));
 jest.mock('../../TraderBot/data/materialTable.json', () => ({
-  Gold: '200',
-  Silver: '17',
-  Iron: '195.5',
+  Gold: 200,
+  Silver: 17,
+  Iron: 195.5,
 }));
 jest.mock('../../TraderBot/data/vocabularyTable.json', () => ({
   glob: 'I',
@@ -44,6 +44,34 @@ describe('DataManager', () => {
       const list = dataManager.getRomanNumeralList();
 
       expect(list).toEqual(['I', 'V', 'X', 'L', 'C', 'D', 'M']);
+    });
+
+    it('should get value from vocabulary Json', () => {
+      const dataManager = new DataManager();
+
+      const selectedVocabularyValue = dataManager.getSelectedVocabularyValue(
+        'glob',
+      );
+
+      expect(selectedVocabularyValue).toEqual('I');
+    });
+
+    it('should get value from materials json', () => {
+      const dataManager = new DataManager();
+
+      const selectedMaterialValue = dataManager.getSelectedMaterialValue(
+        'Silver',
+      );
+
+      expect(selectedMaterialValue).toEqual(17);
+    });
+
+    it('should get value from roman numerals json', () => {
+      const dataManager = new DataManager();
+
+      const selectedRomanValue = dataManager.getSelectedRomanValue('X');
+
+      expect(selectedRomanValue).toEqual(10);
     });
   });
 
