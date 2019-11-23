@@ -47,6 +47,60 @@ describe('Translator', () => {
       expect(result1).toBe('XLII');
       expect(result2).toBe('IV');
     });
+
+    it('should not be allowed to translate a vocabulary string to roman string with more then three successions', () => {
+      const translator = new Translator();
+
+      try {
+        translator.parseVocabularyString('glob glob glob glob');
+      } catch (err) {
+        expect(err).toBe(
+          'Error: The symbols "I", "X", "C", and "M" can be repeated three times in succession, but no more.',
+        );
+      }
+
+      try {
+        translator.parseVocabularyString('pish pish pish pish');
+      } catch (err) {
+        expect(err).toBe(
+          'Error: The symbols "I", "X", "C", and "M" can be repeated three times in succession, but no more.',
+        );
+      }
+    });
+
+    it('should not be allowed to translate a vocabulary string to roman string with some characters more then two successions', () => {
+      const translator = new Translator();
+
+      try {
+        translator.parseVocabularyString('tegj tegj');
+      } catch (err) {
+        expect(err).toBe(
+          'Error: The symbols "D", "L", and "V" can never be repeated',
+        );
+      }
+
+      try {
+        translator.parseVocabularyString('prok prok');
+      } catch (err) {
+        expect(err).toBe('Error: "D", "L", and "V" can never be repeated');
+      }
+    });
+
+    it('should not be allowed to translate a vocabulary string to roman string with disallowed character subtractions', () => {
+      const translator = new Translator();
+
+      try {
+        translator.parseVocabularyString('glob glob glob tegj');
+      } catch (err) {
+        expect(err).toBe('Error: The roman symbols I cannot subtract L');
+      }
+
+      try {
+        translator.parseVocabularyString('prok tegj');
+      } catch (err) {
+        expect(err).toBe('Error: The roman symbols V cannot subtract L');
+      }
+    });
   });
 
   describe('Roman String to Numeric Numbers', () => {
@@ -66,33 +120,4 @@ describe('Translator', () => {
       expect(result5).toBe(30);
     });
   });
-
-  // describe('Vocabulary to Roman Numerals', () => {
-  //   it('should be able to translate vocabulary to roman numerals', () => {
-  //     const translator = new Translator();
-
-  //     const result1 = translator.vocabularyToRoman('pish tegj glob glob');
-  //     const result2 = translator.vocabularyToRoman('glob prok');
-
-  //     expect(result1).toBe('XLII');
-  //     expect(result2).toBe('IV');
-  //   });
-  // });
-  // describe('Roman Numerals to Numeric Numbers', () => {
-  //   it('should be able to translate roman numerals to numeric numbers', () => {
-  //     const translator = new Translator();
-
-  //     const result1 = translator.vocabularyToRoman('XLII');
-  //     const result2 = translator.vocabularyToRoman('MCMXLIV');
-  //     const result3 = translator.vocabularyToRoman('MCMIII');
-  //     const result4 = translator.vocabularyToRoman('DCLIIX');
-
-  //     expect(result1).toBe(42);
-  //     expect(result2).toBe(1944);
-  //     expect(result3).toBe(1903);
-  //     expect(result4).toBe(658);
-  //   });
-
-  //   it('should not be able to traslate when roman numerals break the rule ', () => {});
-  // });
 });
