@@ -51,55 +51,21 @@ describe('Translator', () => {
     it('should not be allowed to translate a vocabulary string to roman string with more then three successions', () => {
       const translator = new Translator();
 
-      try {
-        translator.parseVocabularyString('glob glob glob glob');
-      } catch (err) {
-        expect(err).toBe(
-          'Error: The symbols "I", "X", "C", and "M" can be repeated three times in succession, but no more.',
-        );
-      }
+      const result1 = translator.parseVocabularyString('glob glob glob glob');
+      const result2 = translator.parseVocabularyString('pish pish pish pish');
 
-      try {
-        translator.parseVocabularyString('pish pish pish pish');
-      } catch (err) {
-        expect(err).toBe(
-          'Error: The symbols "I", "X", "C", and "M" can be repeated three times in succession, but no more.',
-        );
-      }
+      expect(result1).toBe(null);
+      expect(result2).toBe(null);
     });
 
     it('should not be allowed to translate a vocabulary string to roman string with some characters more then two successions', () => {
       const translator = new Translator();
 
-      try {
-        translator.parseVocabularyString('tegj tegj');
-      } catch (err) {
-        expect(err).toBe(
-          'Error: The symbols "D", "L", and "V" can never be repeated',
-        );
-      }
+      const result1 = translator.parseVocabularyString('tegj tegj');
+      const result2 = translator.parseVocabularyString('prok prok');
 
-      try {
-        translator.parseVocabularyString('prok prok');
-      } catch (err) {
-        expect(err).toBe('Error: "D", "L", and "V" can never be repeated');
-      }
-    });
-
-    it('should not be allowed to translate a vocabulary string to roman string with disallowed character subtractions', () => {
-      const translator = new Translator();
-
-      try {
-        translator.parseVocabularyString('glob glob glob tegj');
-      } catch (err) {
-        expect(err).toBe('Error: The roman symbols I cannot subtract L');
-      }
-
-      try {
-        translator.parseVocabularyString('prok tegj');
-      } catch (err) {
-        expect(err).toBe('Error: The roman symbols V cannot subtract L');
-      }
+      expect(result1).toBe(null);
+      expect(result2).toBe(null);
     });
   });
 
@@ -118,6 +84,16 @@ describe('Translator', () => {
       expect(result3).toBe(1903);
       expect(result4).toBe(658);
       expect(result5).toBe(30);
+    });
+
+    it('should not be allowed to translate a roman numeric string to numeric numbers with disallowed subtractions', () => {
+      const translator = new Translator();
+
+      const result1 = translator.parseRomanString('VV');
+      const result2 = translator.parseRomanString('XXM');
+
+      expect(result1).toBe(null);
+      expect(result2).toBe(null);
     });
   });
 });

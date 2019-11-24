@@ -60,7 +60,42 @@ class Translator extends DataManager {
       }
     });
 
+    const errorMessage = this.checkRomanRules(translatedVocabulary);
+    if (errorMessage !== '') {
+      console.log(errorMessage);
+      return null;
+    }
+
     return translatedVocabulary;
+  }
+
+  checkRomanRules(romanString) {
+    const listOfDeciRoman = this.getDeciRomanList();
+    const listOfUniqueRoman = this.getUniqueRomanList();
+
+    const errorListDeciMultiple = listOfDeciRoman.map(
+      roman => `${roman}${roman}${roman}${roman}`,
+    );
+    const errorListUniqueMultiple = listOfUniqueRoman.map(
+      roman => `${roman}${roman}`,
+    );
+
+    let errorMessage = '';
+    errorListDeciMultiple.forEach(errorCombination => {
+      if (romanString.includes(errorCombination)) {
+        errorMessage =
+          'Error: The symbols "I", "X", "C", and "M" can be repeated three times in succession, but no more.';
+      }
+    });
+
+    errorListUniqueMultiple.forEach(errorCombination => {
+      if (romanString.includes(errorCombination)) {
+        errorMessage =
+          'Error: The symbols "D", "L", and "V" can never be repeated.';
+      }
+    });
+
+    return errorMessage;
   }
 
   parseRomanString(string) {
@@ -73,6 +108,7 @@ class Translator extends DataManager {
     });
 
     let amount = 0;
+    let errorMessage = '';
     listOfNumerals.forEach((currentAmount, index) => {
       const prevAmountThree = listOfNumerals[index - 3] || 0;
       const prevAmountTwo = listOfNumerals[index - 2] || 0;
@@ -82,6 +118,12 @@ class Translator extends DataManager {
       if (nextAmount < currentAmount) {
         let wildcardAmount = 0;
         if (prevAmount <= currentAmount) {
+          if (errorMessage === '') {
+            errorMessage = this.checkSubtractionError(
+              prevAmount,
+              currentAmount,
+            );
+          }
           wildcardAmount += prevAmount;
           if (prevAmountTwo === prevAmount) wildcardAmount += prevAmount;
           if (prevAmountThree === prevAmount) wildcardAmount += prevAmount;
@@ -95,7 +137,29 @@ class Translator extends DataManager {
       }
     });
 
+    if (errorMessage !== '') {
+      console.log(errorMessage);
+      return null;
+    }
+
     return amount;
+  }
+
+  checkSubtractionError(prevAmount, currentAmount) {
+    let errorMessage = '';
+
+    if (prevAmount.toString().includes('5')) {
+      errorMessage = 'Error: "V", "L", and "D" can never be subtracted.';
+    } else {
+      const reminder = currentAmount / prevAmount;
+
+      if (prevAmount !== 0 && reminder > 10) {
+        errorMessage =
+          'Error: "I" can be subtracted from "V" and "X" only. "X" can be subtracted from "L" and "C" only. "C" can be subtracted from "D" and "M" only';
+      }
+    }
+
+    return errorMessage;
   }
 }
 
