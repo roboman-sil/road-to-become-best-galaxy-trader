@@ -1,6 +1,7 @@
 const romanNumericTable = require('../data/romanNumericTable.json');
+const Translator = require('./Translator');
 
-class DataInput {
+class DataInput extends Translator {
   isAValidDataInput(input) {
     const romanNumeralList = Object.keys(romanNumericTable);
 
@@ -31,6 +32,29 @@ class DataInput {
       }
     }
     return false;
+  }
+
+  manageDataInput(input) {
+    const { translatedVocabulary, vocabulary } = this.parseVocabularyString(
+      input,
+    );
+    const value = this.parseRomanString(translatedVocabulary);
+
+    const { material } = this.parseMaterialString(input);
+
+    let totalValue = parseFloat(input.replace(/[^0-9]/g, ''));
+
+    if (material === '') {
+      this.updateVocabularyTable({
+        [`${vocabulary}`]: `${translatedVocabulary}`,
+      });
+      return 'Updated Vocabulary';
+    } else {
+      this.updateMaterialTable({
+        [`${material}`]: totalValue / value,
+      });
+      return 'Updated Material Cost';
+    }
   }
 }
 
