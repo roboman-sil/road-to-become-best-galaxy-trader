@@ -28,6 +28,30 @@ class DataManager {
     return romanNumericTable[key];
   }
 
+  getUniqueRomanList() {
+    const romanNumeralList = this.getRomanNumeralList();
+    const result = [];
+    romanNumeralList.forEach(romanNumeral => {
+      const value = this.getSelectedRomanValue(romanNumeral);
+      if (value.toString().includes('5')) {
+        result.push(romanNumeral);
+      }
+    });
+    return result;
+  }
+
+  getDeciRomanList() {
+    const romanNumeralList = this.getRomanNumeralList();
+    const result = [];
+    romanNumeralList.forEach(romanNumeral => {
+      const value = this.getSelectedRomanValue(romanNumeral);
+      if (!value.toString().includes('5')) {
+        result.push(romanNumeral);
+      }
+    });
+    return result;
+  }
+
   updateData(tableName, data) {
     let updatedData = data;
     if (fs.existsSync(tableName)) {

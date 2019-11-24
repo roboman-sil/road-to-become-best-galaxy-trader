@@ -52,6 +52,22 @@ describe('DataManager', () => {
 
       expect(selectedRomanValue).toEqual(10);
     });
+
+    it('should get unique roman numeral from roman numerals json', () => {
+      const dataManager = new DataManager();
+
+      const selectedRomanList = dataManager.getUniqueRomanList();
+
+      expect(selectedRomanList).toEqual(['V', 'L', 'D']);
+    });
+
+    it('should get deci roman numeral from roman numeral json', () => {
+      const dataManager = new DataManager();
+
+      const selectedDeciList = dataManager.getDeciRomanList();
+
+      expect(selectedDeciList).toEqual(['I', 'X', 'C', 'M']);
+    });
   });
 
   describe('Edit Table', () => {
@@ -73,7 +89,7 @@ describe('DataManager', () => {
       fs.unlinkSync(dummyTable);
     });
 
-    it('should be able to update Material Table data', () => {
+    it('should be able to update Material Table data', done => {
       const dataManager = new DataManager();
       const tableName = './TraderBot/data/materialTable.json';
       const originalData = JSON.stringify(
@@ -83,12 +99,16 @@ describe('DataManager', () => {
 
       dataManager.updateMaterialTable(data);
 
-      fs.readFile(tableName, (err, fileData) => {
-        if (err) throw err;
-        let jsonData = JSON.parse(fileData);
-        expect(jsonData).toEqual(data);
-      });
-      fs.writeFileSync(tableName, originalData);
+      setTimeout(() => {
+        fs.readFile(tableName, (err, fileData) => {
+          if (err) throw err;
+          const jsonData = JSON.parse(fileData);
+          console.log(jsonData);
+          expect(jsonData).toEqual(data);
+        });
+        fs.writeFileSync(tableName, originalData);
+        done();
+      }, 0);
     });
 
     it('should be able to update Vocabulary Table data', () => {
@@ -103,7 +123,7 @@ describe('DataManager', () => {
 
       fs.readFile(tableName, (err, fileData) => {
         if (err) throw err;
-        let jsonData = JSON.parse(fileData);
+        const jsonData = JSON.parse(fileData);
         expect(jsonData).toEqual(data);
       });
       fs.writeFileSync(tableName, originalData);
