@@ -31,7 +31,7 @@ describe('Translator', () => {
       const result2 = translator.materialToCost('Silver');
       const result3 = translator.materialToCost('Iron');
 
-      expect(result1).toBe(200);
+      expect(result1).toBe(14450);
       expect(result2).toBe(17);
       expect(result3).toBe(195.5);
     });
@@ -44,8 +44,14 @@ describe('Translator', () => {
       const result1 = translator.parseVocabularyString('pish tegj glob glob');
       const result2 = translator.parseVocabularyString('glob prok');
 
-      expect(result1).toBe('XLII');
-      expect(result2).toBe('IV');
+      expect(result1).toEqual({
+        translatedVocabulary: 'XLII',
+        vocabulary: 'pish tegj glob glob',
+      });
+      expect(result2).toEqual({
+        translatedVocabulary: 'IV',
+        vocabulary: 'glob prok',
+      });
     });
 
     it('should not be allowed to translate a vocabulary string to roman string with more then three successions', () => {
@@ -94,6 +100,26 @@ describe('Translator', () => {
 
       expect(result1).toBe(null);
       expect(result2).toBe(null);
+    });
+  });
+
+  describe('Material String to Costing', () => {
+    it('should be able to translate material string to value', () => {
+      const translator = new Translator();
+
+      const result1 = translator.parseMaterialString('Gold sada');
+      const result2 = translator.parseMaterialString('Silver asdiasod');
+      const result3 = translator.parseMaterialString('asdas Iron asdras');
+
+      expect(result1).toEqual({
+        material: 'Gold',
+        translatedMaterial: '14450',
+      });
+      expect(result2).toEqual({ material: 'Silver', translatedMaterial: '17' });
+      expect(result3).toEqual({
+        material: 'Iron',
+        translatedMaterial: '195.5',
+      });
     });
   });
 });

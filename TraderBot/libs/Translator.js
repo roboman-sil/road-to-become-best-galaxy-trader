@@ -48,15 +48,34 @@ class Translator extends DataManager {
     return selectedCostValue;
   }
 
+  parseMaterialString(string) {
+    const listOfPotentialMaterial = string.split(' ');
+
+    let translatedMaterial = '';
+    let material = '';
+    listOfPotentialMaterial.forEach(potentialMaterial => {
+      const parsedMaterial = this.materialToCost(potentialMaterial);
+
+      if (parsedMaterial !== '') {
+        translatedMaterial += parsedMaterial;
+        material = `${potentialMaterial}`;
+      }
+    });
+
+    return { translatedMaterial, material };
+  }
+
   parseVocabularyString(string) {
     const listOfPotentialVocabularies = string.split(' ');
 
     let translatedVocabulary = '';
+    let vocabulary = '';
     listOfPotentialVocabularies.forEach(potentialVocabulary => {
       const parsedVocabulary = this.vocabularyToRoman(potentialVocabulary);
 
       if (parsedVocabulary !== '') {
         translatedVocabulary += parsedVocabulary;
+        vocabulary += `${potentialVocabulary} `;
       }
     });
 
@@ -66,7 +85,7 @@ class Translator extends DataManager {
       return null;
     }
 
-    return translatedVocabulary;
+    return { translatedVocabulary, vocabulary: vocabulary.trim() };
   }
 
   checkRomanRules(romanString) {
