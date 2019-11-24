@@ -5,7 +5,7 @@
   "main": "TraderBot.js",
   "scripts": {
     "test": "jest",
-    "start": "node TraderBot.js"
+    "start": "node executeTraderBot.js"
   },
   "repository": {
     "type": "git",
