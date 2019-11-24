@@ -1,4 +1,5 @@
 const DataManager = require('./DataManager.js');
+const constants = require('../constants');
 
 class Translator extends DataManager {
   constructor(props) {
@@ -102,15 +103,13 @@ class Translator extends DataManager {
     let errorMessage = '';
     errorListDeciMultiple.forEach(errorCombination => {
       if (romanString.includes(errorCombination)) {
-        errorMessage =
-          'Error: The symbols "I", "X", "C", and "M" can be repeated three times in succession, but no more.';
+        errorMessage = constants.error.tooMuchRepeats;
       }
     });
 
     errorListUniqueMultiple.forEach(errorCombination => {
       if (romanString.includes(errorCombination)) {
-        errorMessage =
-          'Error: The symbols "D", "L", and "V" can never be repeated.';
+        errorMessage = constants.error.cannotRepeat;
       }
     });
 
@@ -168,13 +167,12 @@ class Translator extends DataManager {
     let errorMessage = '';
 
     if (prevAmount.toString().includes('5')) {
-      errorMessage = 'Error: "V", "L", and "D" can never be subtracted.';
+      errorMessage = constants.error.subtractingInvalids;
     } else {
       const reminder = currentAmount / prevAmount;
 
       if (prevAmount !== 0 && reminder > 10) {
-        errorMessage =
-          'Error: "I" can be subtracted from "V" and "X" only. "X" can be subtracted from "L" and "C" only. "C" can be subtracted from "D" and "M" only';
+        errorMessage = constants.error.subtractingMismatch;
       }
     }
 

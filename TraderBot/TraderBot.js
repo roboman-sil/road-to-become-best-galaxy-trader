@@ -1,6 +1,7 @@
 const readline = require('readline');
 const DataInput = require('../TraderBot/libs/DataInput');
 const QuestionInput = require('../TraderBot/libs/QuestionInput');
+const constants = require('./constants');
 
 class TraderBot {
   constructor() {
@@ -11,11 +12,9 @@ class TraderBot {
   }
 
   run() {
-    console.log('programme initiating...');
-    console.log(
-      `Trading Bot has completed booting. If you wish to exit from the conversation at any point in time, just enter 'close'`,
-    );
-    console.log('Greetings Master, what is new on the galaxy market today?');
+    console.log(constants.initiating);
+    console.log(constants.completeInitialization);
+    console.log(constants.greetings);
 
     this.rl.question('', answer => this.question(answer, this.rl));
     return true;
@@ -25,9 +24,7 @@ class TraderBot {
     let message = '';
 
     if (answer === 'close') {
-      console.log(
-        'Master, I hope to see you again soon. I hope my assistance has made you wealthier.',
-      );
+      console.log(constants.farewell);
       return rl.close();
     }
 
