@@ -28,12 +28,24 @@ describe('TraderBot', () => {
       expect(result3).toBe('glob prok Silver is 68 Credits');
       expect(result4).toBe('glob prok Gold is 57800 Credits');
     });
-    it.skip('should be able to trigger question input', () => {
+    it('should be able to trigger question input', () => {
       const traderBot = new TraderBot();
 
-      const result1 = traderBot.response();
+      const result1 = traderBot.response('glob is I');
+      const result2 = traderBot.response('prok is V');
+      const result3 = traderBot.response('pish is X');
+      const result4 = traderBot.response('tegj is L');
+      const result5 = traderBot.response('glob glob Silver is 34 Credits');
+      const result6 = traderBot.response('glob prok Gold is 57800 Credits');
+      const result7 = traderBot.response('pish pish Iron is 3910 Credits');
 
-      expect().toBe();
+      expect(result1).toBe('Updated Vocabulary');
+      expect(result2).toBe('Updated Vocabulary');
+      expect(result3).toBe('Updated Vocabulary');
+      expect(result4).toBe('Updated Vocabulary');
+      expect(result5).toBe('Updated Material Cost');
+      expect(result6).toBe('Updated Material Cost');
+      expect(result7).toBe('Updated Material Cost');
     });
     it.skip('should be able to response with an error when input does not match', () => {});
   });

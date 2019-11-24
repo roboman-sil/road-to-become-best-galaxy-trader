@@ -22,19 +22,18 @@ class TraderBot {
   }
 
   question(answer, rl) {
-    console.log(`Thank you for your valuable feedback: ${answer}`);
-
     let message = '';
-    message = this.response(answer);
-    if (message !== '') {
-      console.log(message);
-    }
 
     if (answer === 'close') {
       console.log(
         'Master, I hope to see you again soon. I hope my assistance has made you wealthier.',
       );
       return rl.close();
+    }
+
+    message = this.response(answer);
+    if (message !== '') {
+      console.log(message);
     }
 
     rl.question('', answer => this.question(answer, this.rl));
