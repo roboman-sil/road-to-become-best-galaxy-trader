@@ -8,7 +8,7 @@ jest.mock('../../TraderBot/data/romanNumericTable.json', () => ({
   M: 1000,
 }));
 jest.mock('../../TraderBot/data/materialTable.json', () => ({
-  Gold: 200,
+  Gold: 14450,
   Silver: 17,
   Iron: 195.5,
 }));
