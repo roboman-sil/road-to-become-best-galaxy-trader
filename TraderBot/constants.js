@@ -7,7 +7,7 @@ module.exports = Object.freeze({
     'Master, I hope to see you again soon. I hope my assistance has made you wealthier.',
   updateMessage: {
     vocabulary: 'Updated Vocabulary',
-    material: 'Updated Material Cost',
+    material: 'Updated Material Cost. Close to save value change',
   },
   error: {
     tooMuchRepeats:
