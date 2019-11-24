@@ -43,10 +43,11 @@ class TraderBot {
     if (dataInput.isAValidDataInput(answer)) {
       return dataInput.manageDataInput(answer);
     }
-
     if (questionInput.isAValidQuestion(answer)) {
       return questionInput.manageQuestionInput(answer);
     }
+
+    return constants.error.defaultError;
   }
 }
 

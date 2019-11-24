@@ -1,4 +1,5 @@
 const TraderBot = require('../TraderBot/TraderBot');
+const constants = require('../TraderBot/constants');
 
 describe('TraderBot', () => {
   it('should be able to run', () => {
@@ -46,6 +47,18 @@ describe('TraderBot', () => {
       expect(result5).toBe('Updated Material Cost');
       expect(result6).toBe('Updated Material Cost');
       expect(result7).toBe('Updated Material Cost');
+    });
+
+    it('should be able to return a default error if message is not understood', () => {
+      const traderBot = new TraderBot();
+
+      const result1 = traderBot.response('asdasd');
+      const result2 = traderBot.response('how much wood does a wood chuck');
+      const result3 = traderBot.response('dumb dumb is dodo');
+
+      expect(result1).toBe(constants.error.defaultError);
+      expect(result2).toBe(constants.error.defaultError);
+      expect(result3).toBe(constants.error.defaultError);
     });
   });
 });

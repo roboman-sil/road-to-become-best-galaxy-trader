@@ -1,4 +1,5 @@
 const Translator = require('./Translator');
+const constants = require('../constants');
 
 class QuestionInput extends Translator {
   isAValidQuestion(input) {
@@ -20,13 +21,15 @@ class QuestionInput extends Translator {
     const value = this.parseRomanString(translatedVocabulary);
 
     const { translatedMaterial, material } = this.parseMaterialString(input);
-
-    if (material === '') {
-      return `${vocabulary} is ${value}`;
-    } else {
-      return `${vocabulary} ${material} is ${value *
-        translatedMaterial} Credits`;
+    if (value !== 0) {
+      if (material === '') {
+        return `${vocabulary} is ${value}`;
+      } else {
+        return `${vocabulary} ${material} is ${value *
+          translatedMaterial} Credits`;
+      }
     }
+    return constants.error.defaultError;
   }
 }
 

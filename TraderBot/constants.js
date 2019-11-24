@@ -16,5 +16,6 @@ module.exports = Object.freeze({
     subtractingInvalids: 'Error: "V", "L", and "D" can never be subtracted.',
     subtractingMismatch:
       'Error: "I" can be subtracted from "V" and "X" only. "X" can be subtracted from "L" and "C" only. "C" can be subtracted from "D" and "M" only',
+    defaultError: 'I have no idea what you are talking about',
   },
 });
