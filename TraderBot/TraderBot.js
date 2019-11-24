@@ -1,4 +1,6 @@
 const readline = require('readline');
+const DataInput = require('../TraderBot/libs/DataInput');
+const QuestionInput = require('../TraderBot/libs/QuestionInput');
 
 class TraderBot {
   constructor() {
@@ -15,12 +17,19 @@ class TraderBot {
     );
     console.log('Greetings Master, what is new on the galaxy market today?');
 
-    this.rl.question('', answer => this.questionResponse(answer, this.rl));
+    this.rl.question('', answer => this.question(answer, this.rl));
     return true;
   }
 
-  questionResponse(answer, rl) {
+  question(answer, rl) {
     console.log(`Thank you for your valuable feedback: ${answer}`);
+
+    let message = '';
+    message = this.response(answer);
+    if (message !== '') {
+      console.log(message);
+    }
+
     if (answer === 'close') {
       console.log(
         'Master, I hope to see you again soon. I hope my assistance has made you wealthier.',
@@ -28,16 +37,21 @@ class TraderBot {
       return rl.close();
     }
 
-    rl.question('', answer => this.questionResponse(answer, this.rl));
+    rl.question('', answer => this.question(answer, this.rl));
   }
 
-  // input(rl) {
-  //   rl.on('line', input => {
-  //     console.log(`Received: ${input}`);
+  response(answer) {
+    const dataInput = new DataInput();
+    const questionInput = new QuestionInput();
 
-  //     this.input(rl);
-  //   });
-  // }
+    if (dataInput.isAValidDataInput(answer)) {
+      return dataInput.manageDataInput(answer);
+    }
+
+    if (questionInput.isAValidQuestion(answer)) {
+      return questionInput.manageQuestionInput(answer);
+    }
+  }
 }
 
 module.exports = TraderBot;
