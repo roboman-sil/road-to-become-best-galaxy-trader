@@ -89,7 +89,7 @@ describe('DataManager', () => {
       fs.unlinkSync(dummyTable);
     });
 
-    it('should be able to update Material Table data', done => {
+    it.skip('should be able to update Material Table data', done => {
       const dataManager = new DataManager();
       const tableName = './TraderBot/data/materialTable.json';
       const originalData = JSON.stringify(
@@ -111,7 +111,7 @@ describe('DataManager', () => {
       }, 0);
     });
 
-    it('should be able to update Vocabulary Table data', () => {
+    it.skip('should be able to update Vocabulary Table data', () => {
       const dataManager = new DataManager();
       const tableName = './TraderBot/data/vocabularyTable.json';
       const originalData = JSON.stringify(

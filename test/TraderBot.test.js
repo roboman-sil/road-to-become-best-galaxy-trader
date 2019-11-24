@@ -47,6 +47,5 @@ describe('TraderBot', () => {
       expect(result6).toBe('Updated Material Cost');
       expect(result7).toBe('Updated Material Cost');
     });
-    it.skip('should be able to response with an error when input does not match', () => {});
   });
 });
